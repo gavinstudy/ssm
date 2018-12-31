@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gavin.dao.user.UserDao">
+	<!-- 查询某个名字的User -->
+	<select id="queryListByUserName" parameterType="string" resultType="User">
+		select id,username,password,email,phone,createtime,updatetime
+		from user
+		where username like "%${value}%"
+	</select>
+	<!-- 查询所有User -->
+	<select id="queryList" resultType="User">
+		select
+		id,username,password,email,phone,createtime,updatetime
+		from user
+	</select>
+	<!-- 通过确定ID的user -->
+	<select id="queryTheUser" parameterType="string" resultType="User">
+		select 
+		id,username,password,email,phone,createtime,updatetime
+		from user 
+		where id=#{id}
+	</select>
+	<!-- 增加确定User -->
+	<insert id="insertOneUser" parameterType="User">
+		insert into 
+		user(id,username,password,email,phone,createtime,updatetime) 
+		values(#{id},#{userName},#{password},#{email},#{phone},#{createTime},#{updateTime})
+	</insert>
+	<!-- 更新确定数据 -->
+	<update id="updateTheUser" parameterType="User">
+		update user 
+		set username=#{userName},password=#{password},email=#{email},phone=#{phone},updatetime=#{updateTime} 
+		where id=#{id}
+	</update>
+	<!-- 删除确定user -->
+	<delete id="deleteTheUser" parameterType="string">
+		delete from user where id=#{id}
+	</delete>
+</mapper>
